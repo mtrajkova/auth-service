@@ -33,6 +33,10 @@ public class UserServiceImpl implements UserService {
             throw new UsernameAlreadyExists(user.getUsername());
         }
 
+        //TODO refactor this
+        if (user.isAdmin() == null) {
+            user.setAdmin(false);
+        }
         //TODO find a way to encrypt password
         userRepository.save(user);
     }
