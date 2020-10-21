@@ -3,12 +3,14 @@ package com.bachelor.authservice.api;
 import com.bachelor.authservice.exception.UserNotFound;
 import com.bachelor.authservice.model.User;
 import com.bachelor.authservice.service.UserService;
+import com.google.gson.Gson;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@CrossOrigin
 public class UserController {
 
     private final UserService userService;
@@ -17,9 +19,10 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public ResponseEntity<String> loginUser(@RequestBody User user) throws UserNotFound {
-        return ResponseEntity.ok(this.userService.getJwtTokenForUser(user));
+        Gson gson = new Gson();
+        return ResponseEntity.ok(gson.toJson(this.userService.getJwtTokenForUser(user)));
     }
 
     @PostMapping("/signup")
