@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import javax.persistence.RollbackException;
+
 @ControllerAdvice
 public class ErrorHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler({UserNotFound.class})
@@ -14,7 +16,7 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(e, e.getMessage(), null, HttpStatus.NOT_FOUND, request);
     }
 
-    @ExceptionHandler({UsernameAlreadyExists.class})
+    @ExceptionHandler({EmailAlreadyExists.class})
     protected ResponseEntity<Object> handleAlreadyExists(RuntimeException e, WebRequest request) {
         return handleExceptionInternal(e, e.getMessage(), null, HttpStatus.CONFLICT, request);
     }

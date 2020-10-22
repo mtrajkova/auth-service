@@ -25,7 +25,7 @@ public class JwtTokenService implements TokenService {
 
         String compactTokenString = Jwts.builder()
                 .claim("id", user.getId())
-                .claim("sub", user.getUsername())
+                .claim("sub", user.getEmail())
                 .claim("admin", user.isAdmin())
                 .setExpiration(expirationDate)
                 .signWith(key, SignatureAlgorithm.HS256)
