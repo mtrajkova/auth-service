@@ -4,6 +4,7 @@ import com.bachelor.authservice.client.UserServiceCaller;
 import com.bachelor.authservice.configuration.TokenService;
 import com.bachelor.authservice.exception.UserNotFound;
 import com.bachelor.authservice.exception.EmailAlreadyExists;
+import com.bachelor.authservice.model.LoginResponse;
 import com.bachelor.authservice.model.User;
 import com.bachelor.authservice.model.UserDto;
 import com.bachelor.authservice.repository.UserRepository;
@@ -42,14 +43,28 @@ public class UserServiceImpl implements UserService {
             user.setAdmin(false);
         }
         //TODO find a way to encrypt password
-        userRepository.save(user);
+        user = userRepository.save(user);
         updateUsername(user);
+    }
+
+    @Override
+    public User getUserDetails(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(UserNotFound::new);
+    }
+
+    @Override
+    public LoginResponse loginUser(User user) {
+        User foundUser = userRepository.findByEmail(user.getEmail()).orElseThrow(UserNotFound::new);
+        return new LoginResponse(getJwtTokenForUser(user), foundUser.getUsername());
     }
 
     private void updateUsername(User user) {
         String newUsername = user.getFullName().toLowerCase().replaceAll("\\s+", ".");
         if (userRepository.findByUsername(newUsername).isPresent()) {
-            user.setUsername(newUsername.concat("." + user.getId()));
+            user.setUsername(newUsername.concat(user.getId().toString()));
+        } else {
+            user.setUsername(newUsername);
         }
 
         userRepository.save(user);

@@ -24,7 +24,9 @@ public class User {
     @NotBlank(message = "Name cannot be blank")
     private String fullName;
     //TODO FIX mapping for isAdmin field
-    private Boolean isAdmin;
+    private Boolean isAdmin = false;
+    private String phoneNumber;
+    private String imageLocation = "./assets/img/placeholder.jpg";
 
     public User() {
     }
@@ -86,5 +88,21 @@ public class User {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    public String getImageLocation() {
+        return imageLocation;
+    }
+
+    public void setImageLocation(String imageLocation) {
+        this.imageLocation = imageLocation;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }
