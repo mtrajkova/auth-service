@@ -20,4 +20,9 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleAlreadyExists(RuntimeException e, WebRequest request) {
         return handleExceptionInternal(e, e.getMessage(), null, HttpStatus.CONFLICT, request);
     }
+
+    @ExceptionHandler({WrongCredentials.class})
+    protected ResponseEntity<Object> handleWrongCredentials(RuntimeException e, WebRequest request) {
+        return handleExceptionInternal(e, e.getMessage(), null, HttpStatus.CONFLICT, request);
+    }
 }

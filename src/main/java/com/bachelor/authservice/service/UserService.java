@@ -12,4 +12,6 @@ public interface UserService {
     User getUserDetails(String username);
 
     LoginResponse loginUser(User user);
+
+    User updateUser(String username, User user);
 }

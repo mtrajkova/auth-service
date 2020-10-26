@@ -55,8 +55,24 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public LoginResponse loginUser(User user) {
-        User foundUser = userRepository.findByEmail(user.getEmail()).orElseThrow(UserNotFound::new);
+        User foundUser = userRepository.findByEmailAndPassword(user.getEmail(), user.getPassword()).orElseThrow(UserNotFound::new);
         return new LoginResponse(getJwtTokenForUser(user), foundUser.getUsername());
+    }
+
+    @Override
+    public User updateUser(String username, User user) {
+        User foundUser = userRepository.findByUsername(username).orElseThrow(UserNotFound::new);
+        if (foundUser.getEmail() != user.getEmail()) {
+            foundUser.setEmail(user.getEmail());
+        }
+        if (foundUser.getFullName() != user.getFullName()) {
+            foundUser.setFullName(user.getFullName());
+        }
+        if (foundUser.getPhoneNumber() != user.getPhoneNumber()) {
+            foundUser.setPhoneNumber(user.getPhoneNumber());
+        }
+
+        return userRepository.save(foundUser);
     }
 
     private void updateUsername(User user) {

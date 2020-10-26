@@ -33,4 +33,9 @@ public class UserController {
         return ResponseEntity.ok(userService.getUserDetails(username));
     }
 
+    @PatchMapping("/my/{username}")
+    public ResponseEntity<User> updateUser(@PathVariable("username") String username, @RequestBody User user) {
+        return ResponseEntity.ok(userService.updateUser(username, user));
+    }
+
 }
