@@ -29,7 +29,7 @@ public class UserController {
     }
 
     @GetMapping("/my/{username}")
-    public ResponseEntity<User> signUp(@PathVariable("username") String username) {
+    public ResponseEntity<User> getUserInfo(@PathVariable("username") String username) {
         return ResponseEntity.ok(userService.getUserDetails(username));
     }
 

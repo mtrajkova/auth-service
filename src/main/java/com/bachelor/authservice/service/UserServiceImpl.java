@@ -62,13 +62,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public User updateUser(String username, User user) {
         User foundUser = userRepository.findByUsername(username).orElseThrow(UserNotFound::new);
-        if (foundUser.getEmail() != user.getEmail()) {
+        if (!foundUser.getEmail().equals(user.getEmail()) && !user.getEmail().isEmpty()) {
             foundUser.setEmail(user.getEmail());
         }
-        if (foundUser.getFullName() != user.getFullName()) {
+        if (!foundUser.getFullName().equals(user.getFullName()) && !user.getFullName().isEmpty()) {
             foundUser.setFullName(user.getFullName());
         }
-        if (foundUser.getPhoneNumber() != user.getPhoneNumber()) {
+        if (foundUser.getPhoneNumber() != null && !foundUser.getPhoneNumber().equals(user.getPhoneNumber()) && !user.getPhoneNumber().isEmpty()) {
             foundUser.setPhoneNumber(user.getPhoneNumber());
         }
 
