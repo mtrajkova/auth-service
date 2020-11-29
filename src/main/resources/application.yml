@@ -3,7 +3,7 @@ spring:
     name: auth-service
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     database: postgresql
   datasource:
     url: jdbc:postgresql://localhost:5432/api-jva-security-users

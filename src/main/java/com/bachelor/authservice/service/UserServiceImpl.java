@@ -38,10 +38,6 @@ public class UserServiceImpl implements UserService {
             throw new EmailAlreadyExists(user.getEmail());
         }
 
-        //TODO refactor this
-        if (user.isAdmin() == null) {
-            user.setAdmin(false);
-        }
         //TODO find a way to encrypt password
         user = userRepository.save(user);
         updateUsername(user);

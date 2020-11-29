@@ -2,7 +2,6 @@ package com.bachelor.authservice.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Entity(name = "users")
@@ -21,18 +20,19 @@ public class User {
     @NotBlank(message = "Name cannot be blank")
     private String fullName;
     //TODO FIX mapping for isAdmin field
-    private Boolean isAdmin = false;
+    private Boolean admin = false;
+    private Boolean creator = false;
     private String phoneNumber;
     private String imageLocation = "./assets/img/placeholder.jpg";
 
     public User() {
     }
 
-    public User(Long id, String username, String password, Boolean isAdmin) {
+    public User(Long id, String username, String password, Boolean admin) {
         this.id = id;
         this.username = username;
         this.password = password;
-        this.isAdmin = isAdmin;
+        this.admin = admin;
     }
 
     public Long getId() {
@@ -51,12 +51,8 @@ public class User {
         this.username = username;
     }
 
-    public Boolean isAdmin() {
-        return isAdmin;
-    }
-
     public void setAdmin(Boolean admin) {
-        isAdmin = admin;
+        this.admin = admin;
     }
 
     public String getPassword() {
@@ -76,7 +72,7 @@ public class User {
     }
 
     public Boolean getAdmin() {
-        return isAdmin;
+        return admin;
     }
 
     public String getFullName() {
@@ -101,5 +97,13 @@ public class User {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public Boolean getCreator() {
+        return creator;
+    }
+
+    public void setCreator(Boolean creator) {
+        this.creator = creator;
     }
 }
