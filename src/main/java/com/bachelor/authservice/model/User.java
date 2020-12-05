@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 @Entity(name = "users")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     @NotNull(message = "Email must be present")
     @NotBlank(message = "Email cannot be empty")
@@ -19,7 +19,6 @@ public class User {
     @NotNull(message = "Name must be present")
     @NotBlank(message = "Name cannot be blank")
     private String fullName;
-    //TODO FIX mapping for isAdmin field
     private Boolean admin = false;
     private Boolean creator = false;
     private String phoneNumber;

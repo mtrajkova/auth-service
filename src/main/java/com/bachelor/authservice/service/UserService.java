@@ -14,4 +14,6 @@ public interface UserService {
     LoginResponse loginUser(User user);
 
     User updateUser(String username, User user);
+
+    void deleteUser(String email);
 }

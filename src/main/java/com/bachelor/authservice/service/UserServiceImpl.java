@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public LoginResponse loginUser(User user) {
         User foundUser = userRepository.findByEmailAndPassword(user.getEmail(), user.getPassword()).orElseThrow(UserNotFound::new);
-        return new LoginResponse(getJwtTokenForUser(user), foundUser.getUsername());
+        return new LoginResponse(getJwtTokenForUser(user), foundUser.getUsername(), foundUser.getAdmin(), foundUser.getCreator());
     }
 
     @Override
@@ -69,6 +69,12 @@ public class UserServiceImpl implements UserService {
         }
 
         return userRepository.save(foundUser);
+    }
+
+    @Override
+    public void deleteUser(String email) {
+        User foundUser = userRepository.findByEmail(email).orElseThrow(UserNotFound::new);
+        this.userRepository.delete(foundUser);
     }
 
     private void updateUsername(User user) {
