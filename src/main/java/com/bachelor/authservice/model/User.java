@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 @Entity(name = "users")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @NotNull(message = "Email must be present")
     @NotBlank(message = "Email cannot be empty")
